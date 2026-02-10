@@ -32,7 +32,8 @@ ENV REACT_APP_CHAT_API_URL=${REACT_APP_CHAT_API_URL}
 ENV REACT_APP_CHAT_SOCKET_URL=${REACT_APP_CHAT_SOCKET_URL}
 
 # Build React app
-RUN npm run build
+RUN node --max-old-space-size=4096 node_modules/.bin/react-scripts build
+#RUN npm run build --max-old-space-size=4096
 
 
 ############################
