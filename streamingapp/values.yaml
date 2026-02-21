@@ -1,0 +1,9 @@
+
+
+frontend:
+  image: 975050024946.dkr.ecr.us-west-1.amazonaws.com/hari-frontend-repo:latest
+  port: 80
+
+backend:
+  image: 975050024946.dkr.ecr.us-west-1.amazonaws.com/hari-backend-repo:latest
+  port: 5000
