@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 require('dotenv').config();
 
+const notify = require('./sns');   // ⭐ ADDED
+
 const PORT = process.env.PORT || 3003;
 const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || 'http://localhost:3000')
   .split(',')
@@ -45,6 +47,15 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+
   console.log(`Admin service listening on port ${PORT}`);
+
+  try {
+    await notify("Streaming backend started successfully");
+    console.log("SNS notification sent");
+  } catch(err) {
+    console.log("SNS failed:", err.message);
+  }
+
 });
