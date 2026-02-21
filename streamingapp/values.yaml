@@ -7,3 +7,8 @@ frontend:
 backend:
   image: 975050024946.dkr.ecr.us-west-1.amazonaws.com/hari-backend-repo:latest
   port: 5000
+
+
+backend:
+  env:
+    MONGO_URI: "mongodb://mongo:27017/test"

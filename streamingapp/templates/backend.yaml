@@ -7,16 +7,24 @@ spec:
   selector:
     matchLabels:
       app: backend
+
   template:
     metadata:
       labels:
         app: backend
+
     spec:
       containers:
-      - name: backend
-        image: 975050024946.dkr.ecr.us-west-1.amazonaws.com/hari-backend-repo:latest
-        ports:
-        - containerPort: 3003
+        - name: backend
+          image: 975050024946.dkr.ecr.us-west-1.amazonaws.com/hari-backend-repo:latest
+
+          ports:
+            - containerPort: 3003
+
+          env:
+            - name: MONGO_URI
+              value: "mongodb+srv://hari-mern:YOURPASSWORD@cluster0.wrkbfzu.mongodb.net/streaming"
+
 ---
 apiVersion: v1
 kind: Service
@@ -24,8 +32,11 @@ metadata:
   name: backend
 spec:
   type: ClusterIP
+
   selector:
     app: backend
+
   ports:
-  - port: 3003
-    targetPort: 3003
+    - name: http
+      port: 3003
+      targetPort: 3003
