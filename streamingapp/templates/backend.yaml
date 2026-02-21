@@ -23,7 +23,14 @@ spec:
 
           env:
             - name: MONGO_URI
-              value: "mongodb+srv://hari-mern:YOURPASSWORD@cluster0.wrkbfzu.mongodb.net/streaming"
+              value: "mongodb+srv://hari-mern:123580@cluster0.wrkbfzu.mongodb.net/streaming"
+
+            - name: AWS_REGION
+              value: "us-west-1"
+
+            - name: SNS_TOPIC_ARN
+              value: "arn:aws:sns:us-west-1:975050024946:hari-sns-streamingapp"
+
 
 ---
 apiVersion: v1

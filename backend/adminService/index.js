@@ -48,14 +48,14 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, async () => {
-
   console.log(`Admin service listening on port ${PORT}`);
 
   try {
+    const notify = require('./sns');
     await notify("Streaming backend started successfully");
-    console.log("SNS notification sent");
-  } catch(err) {
-    console.log("SNS failed:", err.message);
+    console.log("SNS notification sent successfully");
+  } catch (err) {
+    console.error("SNS error:", err.message);
   }
-
 });
+
