@@ -4,6 +4,11 @@ Stream premium video content, host live watch parties, and manage your catalogue
 
 ## Architecture
 
+
+Developer → GitHub → Jenkins Pipeline → Docker Build
+→ Push to AWS ECR → Deploy to AWS EKS → Helm Release
+→ MongoDB Atlas → SNS Email Notification
+
 | Service | Port | Description |
 | --- | --- | --- |
 | `authService` | 3001 | User authentication, registration, JWT issuance |
@@ -74,65 +79,42 @@ REACT_APP_ADMIN_API_URL=http://localhost:3003/api/admin
 REACT_APP_CHAT_API_URL=http://localhost:3004/api/chat
 REACT_APP_CHAT_SOCKET_URL=http://localhost:3004
 ```
+instance screenshot: 
+-  <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 16 15" src="https://github.com/user-attachments/assets/4489b58c-4f22-4289-a129-b27d25420977" />
 
-## Running with Docker Compose
 
-1. Populate the environment variables above (or rely on the defaults baked into `docker-compose.yml`).
-2. Build and start the stack:
-   ```bash
-   docker-compose up --build
-   ```
-3. Navigate to `http://localhost:3000` for the web app.
+Jenkins Build Success
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 36 53" src="https://github.com/user-attachments/assets/874a0abd-722e-40ad-9205-e7e94e5dc2e5" />
 
-The compose file provisions MongoDB plus all four Node.js microservices. S3 credentials are optional for local testing—you can still browse seeded metadata, but streaming requires valid S3 objects.
 
-## Local Development
+Jenkins Console ouptput:
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 41 20" src="https://github.com/user-attachments/assets/a1a2206a-ee8f-4285-9d50-973b119bccb9" />
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 41 58" src="https://github.com/user-attachments/assets/0453dc3c-5efa-4d5f-a85c-97e126d8db00" />
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 42 18" src="https://github.com/user-attachments/assets/09ab011c-5b59-4ff7-8c41-47f0a8abc0a7" />
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 42 46" src="https://github.com/user-attachments/assets/f8dfe4e2-784d-492a-9c77-adc63c5d4b90" />
 
-Install dependencies for each service:
 
-```bash
-# auth service
-cd backend/authService && npm install
 
-# streaming service
-cd ../streamingService && npm install
+Helm and mongo db connection success:
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 30 19" src="https://github.com/user-attachments/assets/69f11759-19b4-466b-8632-eaac96801533" />
 
-# admin service
-cd ../adminService && npm install
 
-# chat service
-cd ../chatService && npm install
 
-# frontend
-cd ../../frontend && npm install
-```
+Running pods terminal:
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 23 33" src="https://github.com/user-attachments/assets/684c0480-20c6-433a-aa45-505e51a61ce0" />
 
-Run the services (in separate terminals) after starting MongoDB:
 
-```bash
-cd backend/authService && npm run dev
-cd backend/streamingService && npm run dev
-cd backend/adminService && npm run dev
-cd backend/chatService && npm run dev
-cd frontend && npm start
-```
 
-## Feature Highlights
+Web page:
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 24 44" src="https://github.com/user-attachments/assets/53ce21a6-1be6-4aad-890c-23a54bf56b3f" />
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 38 57" src="https://github.com/user-attachments/assets/e6ccee56-f764-476a-aea5-cf671e70b8d2" />
 
-- **S3-backed adaptive streaming** with secure signed uploads for admins.
-- **Dedicated admin microservice** for video ingestion, metadata management, and featured curation.
-- **Real-time chat** overlay in the player (Socket.IO + persistent message history).
-- **Modern React experience** featuring cinematic hero sections, dynamic carousels, and responsive design.
-- **Role-aware access control** across frontend routes and backend microservices.
 
-## Testing
+Kub nodes and aws ECR:
+- <img width="1440" height="900" alt="Screenshot 2026-02-22 at 12 33 38" src="https://github.com/user-attachments/assets/e5bac1b4-a249-4903-b733-260f43515fbc" />
 
-Automated tests are not yet included. Recommended smoke checks:
 
-1. Register and log in through the web UI.
-2. Upload a small video + thumbnail via the admin dashboard (requires valid S3 credentials).
-3. Confirm playback from the browse page and verify that chat messages broadcast between multiple browser tabs.
 
-## License
 
-MIT © StreamFlix Team
+
+
